@@ -1,7 +1,7 @@
 // load products api or data 
 const loadPhone = async (searchText=13,isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
-    console.log("me",res);
+    
     const data = await res.json();
     const phones = data.data;
     console.log(phones);
@@ -15,6 +15,7 @@ let displayPhone = (phones,isShowAll) => {
     let phoneContainer = document.getElementById('phone-container');
     let showAllPhones = document.getElementById('btn-showall');
 
+   
     if(phones.length>12 && !isShowAll){
         showAllPhones.classList.remove('hidden');
     }
@@ -47,7 +48,14 @@ let displayPhone = (phones,isShowAll) => {
         phoneContainer.appendChild(phoneCard);
         
     });
-    
+
+    // if no product match search text 
+    if(phones.length === 0){
+        let err = document.createElement('h3');
+        err.classList = "mx-auto text-2xl text-white";
+        err.innerHTML = "No product available. Search again....";
+        phoneContainer.appendChild(err);
+    }
     loadingHandler(false);
 }
 
