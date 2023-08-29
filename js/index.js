@@ -1,29 +1,35 @@
-const loadPhone = async (searchText=13) => {
+// load products api or data 
+const loadPhone = async (searchText=13,isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
+    console.log("me",res);
     const data = await res.json();
-    // console.log(data.data.length);
     const phones = data.data;
-    displayPhone(phones);
+    console.log(phones);
+    displayPhone(phones,isShowAll);
 }
 
-let displayPhone = phones => {
-    // console.log(phone);
+
+// all codes to display products 
+let displayPhone = (phones,isShowAll) => {
+
     let phoneContainer = document.getElementById('phone-container');
     let showAllPhones = document.getElementById('btn-showall');
 
-    if(phones.length>12){
+    if(phones.length>12 && !isShowAll){
         showAllPhones.classList.remove('hidden');
     }
     else{
         showAllPhones.classList.add('hidden');
     }
-    phones = phones.slice(0,12)
+
+    if(!isShowAll){
+        phones = phones.slice(0,12);
+    }
     // clear previous search results 
     phoneContainer.textContent = '';
     
     phones.forEach(phone => {
         
-        console.log(phones.length);
         let phoneCard = document.createElement('div');
         phoneCard.classList = (`card w-3/4 mx-auto md:w-96 bg-orange-300 shadow-xl `);
         phoneCard.innerHTML = `
@@ -45,23 +51,32 @@ let displayPhone = phones => {
     loadingHandler(false);
 }
 
-function handleSearch(){
+// search field function 
+function handleSearch(isShowAll){
     let searchId = document.getElementById('search-field');
     let searchText = searchId.value;
-    loadPhone(searchText);
+    loadPhone(searchText,isShowAll);
 
-    showAllHandler(true);
     loadingHandler(true);
 }
 
-function showAllHandler(isShowAll){
-    
+// this is not a professional way but interesting (explore js)
+function showAllHandler(){
+    handleSearch(true);
 }
 
+
+// very interesting thing
 function loadingHandler(isLoading){
     let loading = document.getElementById('loading');
     if(isLoading){
         loading.classList.remove('hidden');
+
+        // just for removing product when loading (there could be easy way but I did this)
+        let showAllPhones = document.getElementById('btn-showall');
+        let phoneContainer = document.getElementById('phone-container');
+        phoneContainer.innerText = '';
+        showAllPhones.classList.add('hidden');
     }
     else{
         loading.classList.add('hidden');
