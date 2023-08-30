@@ -10,23 +10,21 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.6.3/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<style>
-    
-</style>
-
 <body>
 
     <main class="bg-purple-600 min-h-screen">
         <!-- search box  -->
         <section class="bg-orange-600">
             <div id="search-box" class="p-10 flex items-center justify-center">
-                <input id="search-field" type="text" placeholder="Search for products..." class="input input-bordered w-1/2 rounded-none" />
+                <input id="search-field" type="text" placeholder="Search for products..."
+                    class="input input-bordered w-1/2 rounded-none" />
                 <button onclick="handleSearch()" class="btn btn-primary rounded-none">Search</button>
             </div>
         </section>
 
         <!-- search results or phones  -->
         <section class="container mx-auto py-10">
+
             <!-- loading logo -->
             <div id="loading" class="text-center my-10 hidden">
                 <span class="loading loading-dots loading-lg"></span>
@@ -34,15 +32,23 @@
             <!-- phone container  -->
             <div id="phone-container" class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 md:gap-5 mt-10">
 
-
             </div>
 
             <!-- show all phones  -->
-            <div id="btn-showall" class=" text-center my-5 hidden">
+            <div id="btn-showall" class="text-center my-5 hidden">
                 <button onclick="showAllHandler()" class="btn btn-warning text-blue-950 px-5">Show All</button>
             </div>
-        </section>
 
+            <!-- show details modal -->
+            <div class="bg-fuchsia-500">
+            <dialog id="show_details_modal" class="modal sm:modal-middle w-3/4 md:w-full mx-auto">
+                <form method="dialog" class="modal-box" id="detail-modal-container">
+                    
+                    
+                </form>
+            </dialog>
+            </div>
+        </section>
 
     </main>
 
